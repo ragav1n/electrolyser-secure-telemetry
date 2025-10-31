@@ -1,0 +1,17 @@
+mqtt:
+  host: 127.0.0.1   # ← change from 'localhost' to this
+  port: 8883
+  ca: ../../infra/mosquitto/certs/ca/ca.crt
+  cert: ../../infra/mosquitto/certs/clients/sensor_001/sensor_001.crt
+  key: ../../infra/mosquitto/certs/clients/sensor_001/sensor_001.key
+  client_id: sensor_001
+  topic: sensors/stackA/sensor_001
+  qos: 1
+
+payload_encryption:
+  enabled: false
+  key_hex: ""  # 64 hex chars if you enable AES-256
+
+telemetry:
+  interval_secs: 2
+  fields: [temperature_c, pressure_bar, h2_flow_sccm, purity_pct, voltage_v, current_a]

@@ -1,0 +1,45 @@
+[ ca ]
+default_ca = CA_default
+
+
+[ CA_default ]
+dir = .
+certs = $dir/certs
+crl_dir = $dir/crl
+new_certs_dir = $dir/newcerts
+database = $dir/index.txt
+serial = $dir/serial
+private_key = $dir/private/ca.key
+certificate = $dir/certs/ca.crt
+default_md = sha256
+policy = policy_loose
+copy_extensions = copy
+
+
+[ policy_loose ]
+commonName = supplied
+stateOrProvinceName = optional
+countryName = optional
+organizationName = optional
+organizationalUnitName = optional
+emailAddress = optional
+
+
+[ req ]
+default_bits = 4096
+default_md = sha256
+default_keyfile = private/ca.key
+default_days = 3650
+distinguished_name = req_distinguished_name
+x509_extensions = v3_ca
+
+
+[ req_distinguished_name ]
+commonName = Common Name (e.g. Electrolyser CA)
+
+
+[ v3_ca ]
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid:always,issuer
+basicConstraints = CA:true
+keyUsage = critical, keyCertSign, cRLSign

@@ -1,0 +1,10 @@
+# Map cert CN (username via use_identity_as_username true) to topic access.
+# Each client may publish/subscribe only to: sensors/<stack>/<CN>
+pattern readwrite sensors/+/%u
+
+# Telegraf bridge (CN = telegraf_bridge): read everything under sensors/
+user telegraf_bridge
+topic read sensors/#
+
+# (Optional) allow read-only access to broker stats
+topic read $SYS/#

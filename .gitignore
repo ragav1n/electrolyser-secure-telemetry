@@ -1,0 +1,124 @@
+# -------------------------------
+# Core Python ignores
+# -------------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+*.eggs/
+.Python
+.python-version
+.venv/
+venv/
+env/
+ENV/
+
+# Byte-compiled / cached files
+*.pyc
+*.pkl
+*.log
+*.tmp
+*.bak
+
+# -------------------------------
+# Project-specific paths
+# -------------------------------
+
+# Certificates and private keys
+infra/mosquitto/certs/**/*.key
+infra/mosquitto/certs/**/*.csr
+infra/mosquitto/certs/**/*.srl
+infra/mosquitto/certs/**/newcerts/
+infra/mosquitto/certs/**/private/
+infra/mosquitto/certs/**/index.txt*
+infra/mosquitto/certs/**/serial*
+infra/mosquitto/certs/**/crl/
+infra/mosquitto/certs/**/reqs/
+pkilab/*.key
+pkilab/*.csr
+pkilab/*.srl
+pkilab/newcerts/
+pkilab/private/
+pkilab/index.txt*
+pkilab/serial*
+pkilab/crl/
+pkilab/reqs/
+
+# Keep CA/public certs tracked safely
+!infra/mosquitto/certs/ca/ca.crt
+!infra/mosquitto/certs/broker/broker.crt
+!infra/mosquitto/certs/clients/**.crt
+
+# -------------------------------
+# Docker and Compose
+# -------------------------------
+*.pid
+*.pid.lock
+*.seed
+*.tar
+docker-compose.override.yml
+docker-compose.override.yaml
+docker-data/
+docker-volumes/
+**/mosquitto_data/
+**/mosquitto_log/
+**/influxdb_data/
+**/grafana_data/
+
+# -------------------------------
+# Logs and runtime data
+# -------------------------------
+*.log
+*.jsonl
+*.csv
+*.sqlite3
+*.db
+*.pid
+nohup.out
+logs/
+*.DS_Store
+
+# -------------------------------
+# Environment / secrets
+# -------------------------------
+.env
+.env.*
+.envrc
+*.pem
+*.crt.pem
+*.key.pem
+
+# -------------------------------
+# Reports / test artifacts
+# -------------------------------
+reports/
+*.pdf
+*.html
+*.md.html
+pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# -------------------------------
+# Node / Frontend (future Grafana-UI or Next.js dashboard)
+# -------------------------------
+node_modules/
+npm-debug.log*
+yarn-error.log*
+dist/
+build/
+.cache/
+.next/
+out/
+.DS_Store
+
+# -------------------------------
+# Misc / editor junk
+# -------------------------------
+.idea/
+.vscode/
+*.swp
+*.swo
+Thumbs.db
