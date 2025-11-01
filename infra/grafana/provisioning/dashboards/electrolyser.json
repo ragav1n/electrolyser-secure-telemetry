@@ -1,0 +1,108 @@
+{
+  "id": null,
+  "title": "Electrolyser Telemetry",
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 2,
+  "refresh": "5s",
+  "time": { "from": "now-15m", "to": "now" },
+
+  "templating": {
+    "list": [
+      {
+        "type": "query",
+        "name": "sensor",
+        "label": "Sensor",
+        "hide": 0,
+        "datasource": { "type": "influxdb", "uid": "influxdb" },
+        "query": "import \"influxdata/influxdb/schema\"\nschema.tagValues(bucket: \"telemetry\", tag: \"sensor_id\")",
+        "refresh": 2,
+        "multi": true,
+        "includeAll": true,
+        "allValue": ".*",          
+        "current": {}
+      }
+    ]
+  },
+
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Temperature (°C)",
+      "gridPos": { "x": 0, "y": 0, "w": 12, "h": 7 },
+      "targets": [
+        {
+          "refId": "A",
+          "queryType": "flux",
+          "datasource": { "type": "influxdb", "uid": "influxdb" },
+          "query": "from(bucket: \"telemetry\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r._measurement == \"electrolyser\" and r._field == \"temperature_c\")\n  |> filter(fn: (r) => r.sensor_id =~ /${sensor:regex}/)\n"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Pressure (bar)",
+      "gridPos": { "x": 12, "y": 0, "w": 12, "h": 7 },
+      "targets": [
+        {
+          "refId": "A",
+          "queryType": "flux",
+          "datasource": { "type": "influxdb", "uid": "influxdb" },
+          "query": "from(bucket: \"telemetry\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r._measurement == \"electrolyser\" and r._field == \"pressure_bar\")\n  |> filter(fn: (r) => r.sensor_id =~ /${sensor:regex}/)\n"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "H₂ Flow (sccm)",
+      "gridPos": { "x": 0, "y": 7, "w": 12, "h": 7 },
+      "targets": [
+        {
+          "refId": "A",
+          "queryType": "flux",
+          "datasource": { "type": "influxdb", "uid": "influxdb" },
+          "query": "from(bucket: \"telemetry\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r._measurement == \"electrolyser\" and r._field == \"h2_flow_sccm\")\n  |> filter(fn: (r) => r.sensor_id =~ /${sensor:regex}/)\n"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Purity (%)",
+      "gridPos": { "x": 12, "y": 7, "w": 12, "h": 7 },
+      "targets": [
+        {
+          "refId": "A",
+          "queryType": "flux",
+          "datasource": { "type": "influxdb", "uid": "influxdb" },
+          "query": "from(bucket: \"telemetry\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r._measurement == \"electrolyser\" and r._field == \"purity_pct\")\n  |> filter(fn: (r) => r.sensor_id =~ /${sensor:regex}/)\n"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Voltage (V)",
+      "gridPos": { "x": 0, "y": 14, "w": 12, "h": 7 },
+      "targets": [
+        {
+          "refId": "A",
+          "queryType": "flux",
+          "datasource": { "type": "influxdb", "uid": "influxdb" },
+          "query": "from(bucket: \"telemetry\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r._measurement == \"electrolyser\" and r._field == \"voltage_v\")\n  |> filter(fn: (r) => r.sensor_id =~ /${sensor:regex}/)\n"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Current (A)",
+      "gridPos": { "x": 12, "y": 14, "w": 12, "h": 7 },
+      "targets": [
+        {
+          "refId": "A",
+          "queryType": "flux",
+          "datasource": { "type": "influxdb", "uid": "influxdb" },
+          "query": "from(bucket: \"telemetry\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r._measurement == \"electrolyser\" and r._field == \"current_a\")\n  |> filter(fn: (r) => r.sensor_id =~ /${sensor:regex}/)\n"
+        }
+      ]
+    }
+  ]
+}
